@@ -1,41 +1,43 @@
+USE portal
+
 IF NOT EXISTS (SELECT * FROM mbx.Products)
 	BEGIN
 		INSERT INTO mbx.Products (ProductName, CategoryID)
 		VALUES
-			('Видеокарта', 4),
-			('Системный блок', 4),
-			('Кроссовки', 6),
-			('Кроссовки', 5),
-			('Огурец', 2),
-			('Огурец', 1),
-			('Яблоко', 3),
-			('Яблоко', 1),
-			('Стол', 7),
-			('Стул', 7),
-			('Диван', 7),
-			('Материнская плата', 4),
-			('Оперативная память', 4),
-			('Розетка', NULL),
-			('Плинтус', NULL),
-			('Шкаф', 7)
+			('Video card', 4),
+			('Computer case', 4),
+			('Sneakers', 6),
+			('Sneakers', 5),
+			('Cucumber', 2),
+			('Cucumber', 1),
+			('Apple', 3),
+			('Apple', 1),
+			('Table', 7),
+			('Chair', 7),
+			('Sofa', 7),
+			('Motherboard', 4),
+			('RAM', 4),
+			('Socket', NULL),
+			('Plinth', NULL),
+			('Cupboard', 7)
 	END
 
 IF NOT EXISTS (SELECT * FROM mbx.Categories)
 	BEGIN
 		INSERT INTO mbx.Categories (CategoryName, CategoryID)
 		VALUES
-			('Продукты питания', 1),
-			('Овощи', 2),
-			('Фрукты', 3),
-			('Комплектующие компьютера', 4),
-			('Одежда', 5),
-			('Обувь', 6),
-			('Мебель', 7)
+			('Food', 1),
+			('Vegetables', 2),
+			('Fruits', 3),
+			('Computer components', 4),
+			('Clothing', 5),
+			('Shoes', 6),
+			('Furniture', 7)
 	END
 
 SELECT
-	prod.ProductName AS [Продукт],
-	IIF(STRING_AGG(cat.CategoryName, ', ') IS NULL, 'Нет категории', STRING_AGG(cat.CategoryName, ', ')) AS [Категории]
+	prod.ProductName AS [Product],
+	IIF(STRING_AGG(cat.CategoryName, ', ') IS NULL, 'No category', STRING_AGG(cat.CategoryName, ', ')) AS [Category]
 	FROM mbx.Products AS prod
 	LEFT JOIN mbx.Categories AS cat ON cat.CategoryID = prod.CategoryID
 	GROUP BY prod.ProductName
